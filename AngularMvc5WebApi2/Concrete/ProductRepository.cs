@@ -9,29 +9,46 @@ namespace AngularMvc5WebApi2.Concrete
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+
         public Product Add(Product item)
         {
-            throw new NotImplementedException();
+            if(item == null)
+            {
+                throw new ArgumentNullException("item");
+            }
+            db.Products.Add(item);
+            db.SaveChanges();
+            return item;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var product = db.Products.Find(id);
+            db.Products.Remove(product);
+            db.SaveChanges();
+            return true;
         }
 
         public Product Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Products.Find(id);
         }
 
         public IEnumerable<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Products;
         }
 
         public bool Update(Product item)
         {
-            throw new NotImplementedException();
+            var product = db.Products.Single(p => p.Id == item.Id);
+            product.Name = item.Name;
+            product.Category = item.Category;
+            product.Price = item.Price;
+            db.SaveChanges();
+
+            return true;
         }
     }
 }

@@ -1,24 +1,104 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+﻿@{ 
+    ViewBag.Title = "Products List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/js/ngApp.js"></script>
+}
+<div ng-app="ngApp" id="body">
+    <div ng-controller="appController">
+        <h2>AngularJS  MVC5 WebAPI2</h2>
+        <h3>List of Products</h3>
+
+        <table ng-cloak>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in productData">
+                    <td>{{item.Id}}</td>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.Category}}</td>
+                    <td>{{item.Price | currency:"$":2}}</td>
+                    <td>
+                        <button ng-model="$scope.Product" ng-click="edit(productData[$index])">Edit</button>
+                        <button ng-click="delete($index)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <hr />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total :</td>
+                    <td></td>
+                    <td><label ng-bind="total() | currency: '$':2"></label></td>
+                </tr>
+            </tfoot>
+        </table>
+        <br />
+        <div style="border-top: solid 2px #282828; width: 430px; height: 10px;"></div>
+
+        <div ng-show="Product.Id != '' ">
+            <div>
+                <h2>Update Product</h2>
+            </div>
+            <div hidden="hidden">
+                <label for="id">Id</label>
+                <input type="text" data-ng-model="Product.Id" />
+            </div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" data-ng-model="Product.Name" />
+            </div>
+            <div>
+                <label for="category">Category</label>
+                <input type="text" data-ng-model="Product.Category" />
+            </div>
+            <div>
+                <label for="price">Price</label>
+                <input type="text" data-ng-model="Product.Price" />
+            </div>
+            <br />
+            <div>
+                <button data-ng-click="update()">Update</button>
+                <button data-ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+
+        <div ng-hide="Product.Id != '' ">
+            <div>
+                <h2>Add New Product</h2>
+            </div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" data-ng-model="Product.Name" />
+            </div>
+            <div>
+                <label for="category">Category</label>
+                <input type="text" data-ng-model="Product.Category" />
+            </div>
+            <div>
+                <label for="price">Price</label>
+                <input type="text" data-ng-model="Product.Price" />
+            </div>
+            <br />
+            <div>
+                <button data-ng-click="save()">Save</button>
+                <button data-ng-click="clear()">Clear</button>
+            </div>
+        </div>
     </div>
 </div>
