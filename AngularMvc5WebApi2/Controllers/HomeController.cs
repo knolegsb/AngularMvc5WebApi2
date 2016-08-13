@@ -14,5 +14,10 @@ namespace AngularMvc5WebApi2.Controllers
 
             return View();
         }
+
+        public ActionResult Customers()
+        {
+            return View();
+        }
     }
 }

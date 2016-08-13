@@ -1,4 +1,4 @@
-﻿var app = angular.module("ngApp", []);
+﻿//var app = angular.module("ngApp", []);
 
 app.controller("appController", function ($scope, $http, productService) {
     $scope.productData = null;

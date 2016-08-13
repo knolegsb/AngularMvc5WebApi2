@@ -28,6 +28,8 @@ namespace AngularMvc5WebApi2.Models
         
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
